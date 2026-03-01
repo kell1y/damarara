@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damarara Tea & Coffee — From Rwanda's Highlands to Your Cup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --charcoal: #1a1a1a;
+            --warm-gray: #2a2a2a;
+            --gold: #d4af37;
+            --soft-gold: #e5c76b;
+            --cream: #f5f5f0;
+            --mist: rgba(245, 245, 240, 0.1);
+            --text-primary: #f5f5f0;
+            --text-secondary: rgba(245, 245, 240, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--black);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+            left: 0;
+            top: 0;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+            left: 0;
+            top: 0;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0));
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, var(--charcoal) 0%, var(--black) 100%);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(212, 175, 55, 0.03) 50%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            animation: shimmer 20s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.6s;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            font-style: italic;
+            color: var(--gold);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.9s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.5s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(10px);
+            }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 4rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-number {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Story Section */
+        .story {
+            background: linear-gradient(to bottom, var(--black), var(--charcoal));
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-text p:first-of-type::first-letter {
+            font-size: 4rem;
+            font-family: 'Cormorant Garamond', serif;
+            float: left;
+            line-height: 0.8;
+            margin: 0.1em 0.1em 0 0;
+            color: var(--gold);
+        }
+
+        .story-visual {
+            position: relative;
+            height: 600px;
+            background: var(--warm-gray);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .story-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 40%, rgba(212, 175, 55, 0.05) 50%, transparent 60%);
+            animation: visualShimmer 15s ease-in-out infinite;
+        }
+
+        @keyframes visualShimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .story-visual-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 8rem;
+            color: rgba(212, 175, 55, 0.1);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            z-index: 1;
+        }
+
+        /* Products Section */
+        .products {
+            background: var(--charcoal);
+        }
+
+        /* Shop Section */
+        .shop {
+            background: var(--black);
+            padding: 8rem 4rem;
+        }
+
+        .shop-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+        }
+
+        .shop-item {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 4rem;
+            padding: 3rem;
+            background: var(--charcoal);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .shop-item:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .shop-item-visual {
+            position: relative;
+        }
+
+        .shop-visual-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--warm-gray);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-visual-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+        }
+
+        .shop-icon {
+            font-size: 8rem;
+            filter: grayscale(0.3);
+            opacity: 0.6;
+        }
+
+        .shop-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gold);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .shop-badge.premium {
+            background: linear-gradient(135deg, var(--gold), var(--soft-gold));
+        }
+
+        .shop-item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .shop-item-name {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--gold);
+            margin-bottom: 0;
+        }
+
+        .shop-item-origin {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .shop-item-description {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .shop-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--warm-gray);
+            border-left: 3px solid var(--gold);
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .detail-value {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .shop-sizes {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .size-option {
+            flex: 1;
+        }
+
+        .size-option input[type="radio"] {
+            display: none;
+        }
+
+        .size-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: var(--warm-gray);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .size-option input[type="radio"]:checked + label {
+            background: var(--black);
+            border-color: var(--gold);
+        }
+
+        .size-option label:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .size-amount {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .size-price {
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        .shop-quantity {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .shop-quantity label {
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: var(--warm-gray);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qty-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .qty-input {
+            width: 60px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-primary);
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .qty-input:focus {
+            outline: none;
+        }
+
+        .add-to-order {
+            padding: 1rem 2rem;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .add-to-order:hover {
+            background: var(--soft-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Order Sidebar */
+        .order-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--charcoal);
+            border-left: 1px solid rgba(212, 175, 55, 0.3);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s ease;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .order-sidebar.open {
+            right: 0;
+        }
+
+        .order-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-header h3 {
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+
+        .close-order {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .close-order:hover {
+            color: var(--gold);
+        }
+
+        .order-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .empty-order {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 3rem 1rem;
+            font-style: italic;
+        }
+
+        .order-item {
+            padding: 1.5rem;
+            background: var(--warm-gray);
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--gold);
+        }
+
+        .order-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-item-name {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .order-item-remove {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .order-item-remove:hover {
+            color: var(--gold);
+        }
+
+        .order-item-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-item-price {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-top: 0.5rem;
+        }
+
+        .order-footer {
+            padding: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            background: var(--black);
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .total-amount {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: var(--soft-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* View Order Button */
+        .view-order-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .view-order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .order-count {
+            background: var(--black);
+            color: var(--gold);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Order Modal */
+        .order-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .order-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--charcoal);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--gold);
+        }
+
+        .modal-content h2 {
+            padding: 2rem 3rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .modal-body {
+            padding: 2rem 3rem 3rem;
+        }
+
+        .order-review {
+            background: var(--warm-gray);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--gold);
+        }
+
+        .order-review h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .customer-form h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--warm-gray);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            padding: 1.5rem 0;
+            margin: 2rem 0 1.5rem;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-total {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-order-btn:hover {
+            background: var(--soft-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .success-message {
+            background: var(--warm-gray);
+            padding: 3rem;
+            text-align: center;
+            border-left: 3px solid var(--gold);
+        }
+
+        .success-message h3 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--warm-gray);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: var(--gold);
+            opacity: 0.8;
+        }
+
+        .product-name {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Journey Section */
+        .journey {
+            background: linear-gradient(to bottom, var(--charcoal), var(--black));
+        }
+
+        .journey-timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 2;
+        }
+
+        .timeline-item:nth-child(even) .timeline-number {
+            grid-column: 1;
+            text-align: right;
+        }
+
+        .timeline-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            color: rgba(212, 175, 55, 0.2);
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            background: var(--gold);
+            border: 4px solid var(--black);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Values Section */
+        .values {
+            background: var(--black);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .value-item {
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--warm-gray) 0%, var(--charcoal) 100%);
+            border-left: 3px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateX(10px);
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--warm-gray) 100%);
+        }
+
+        .value-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .value-item p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(to bottom, var(--black), var(--charcoal));
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .contact-value a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 4rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 5rem 2rem;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-number {
+                grid-column: 1;
+                text-align: left;
+            }
+
+            .journey-timeline::before {
+                left: 0;
+            }
+
+            .timeline-dot {
+                left: 0;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Damarara</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#story">History</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#journey">Our Journey</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Damarara</h1>
+            <p class="hero-subtitle">Tea & Coffee</p>
+            <p class="hero-tagline">From the misty hills of Rwanda to your cup</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story">
+        <div class="section-header">
+            <div class="section-number">— 01 —</div>
+            <h2 class="section-title">Our Heritage</h2>
+            <p class="section-subtitle">A story rooted in Rwanda's highland farms, nurtured by tradition, and refined through craftsmanship</p>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>In the misty highlands of Rwanda, where the morning light touches the land with golden fingers, our story begins. Generations of farmers have tended these fertile hills, cultivating tea and coffee with knowledge passed down through time.</p>
+                <p>Damarara represents more than a beverage. It embodies the spirit of Rwandan soil, the dedication of our farmers, and the heritage of a nation. Each leaf is handpicked at the peak of perfection, carrying with it the essence of our homeland.</p>
+                <p>We honor tradition while embracing modern quality standards, ensuring that every cup delivers the authentic taste of Rwanda. Our commitment extends beyond the product—we empower farmers, support communities, and preserve the craft that defines our identity.</p>
+            </div>
+            <div class="story-visual">
+                <div class="story-visual-text">Rwanda</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="section-header">
+            <div class="section-number">— 02 —</div>
+            <h2 class="section-title">Our Collection</h2>
+            <p class="section-subtitle">Everyday premium: accessible yet refined selections that honor our commitment to quality</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon">🍃</div>
+                <h3 class="product-name">Classic Black Tea</h3>
+                <p class="product-description">Rich, full-bodied tea from Rwanda's finest estates. A bold cup with notes of malt and a smooth finish that speaks to generations of expertise.</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🌿</div>
+                <h3 class="product-name">Herbal Blends</h3>
+                <p class="product-description">Carefully curated herbal infusions combining traditional Rwandan botanicals with wellness-focused ingredients for a naturally soothing experience.</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">✨</div>
+                <h3 class="product-name">Premium Reserve</h3>
+                <p class="product-description">Limited selection of our most exceptional harvests. Single-origin, small-batch teas representing the pinnacle of Rwandan tea craftsmanship.</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">☕</div>
+                <h3 class="product-name">Coffee Collection</h3>
+                <p class="product-description">Artisan coffee sourced from Rwanda's volcanic highlands. Complex flavor profiles ranging from bright and citrusy to deep and chocolatey.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Products & Order Section -->
+    <section id="shop" class="shop">
+        <div class="section-header">
+            <div class="section-number">— 03 —</div>
+            <h2 class="section-title">Shop Our Collection</h2>
+            <p class="section-subtitle">Select your favorites and place your order</p>
+        </div>
+        <div class="shop-container">
+            <!-- Classic Black Tea -->
+            <div class="shop-item">
+                <div class="shop-item-visual">
+                    <div class="shop-visual-placeholder">
+                        <span class="shop-icon">🍃</span>
+                    </div>
+                    <div class="shop-badge">Best Seller</div>
+                </div>
+                <div class="shop-item-details">
+                    <h3 class="shop-item-name">Classic Black Tea</h3>
+                    <div class="shop-item-origin">Rwanda Highland Estate</div>
+                    <p class="shop-item-description">
+                        Our signature black tea, harvested from Rwanda's premier highland estates at elevations above 1,800 meters. This full-bodied tea offers a rich, malty flavor with subtle notes of chocolate and a smooth, clean finish. Perfect for morning rituals or afternoon contemplation.
+                    </p>
+                    <div class="shop-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Tasting Notes</span>
+                            <span class="detail-value">Malt, Chocolate, Smooth</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Caffeine Level</span>
+                            <span class="detail-value">Medium-High</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Brewing Temp</span>
+                            <span class="detail-value">95°C / 203°F</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Steep Time</span>
+                            <span class="detail-value">3-5 minutes</span>
+                        </div>
+                    </div>
+                    <div class="shop-sizes">
+                        <div class="size-option" data-size="100g" data-price="12.00">
+                            <input type="radio" name="classic-size" id="classic-100" value="100g" checked>
+                            <label for="classic-100">
+                                <span class="size-amount">100g</span>
+                                <span class="size-price">$12.00</span>
+                            </label>
+                        </div>
+                        <div class="size-option" data-size="250g" data-price="28.00">
+                            <input type="radio" name="classic-size" id="classic-250" value="250g">
+                            <label for="classic-250">
+                                <span class="size-amount">250g</span>
+                                <span class="size-price">$28.00</span>
+                            </label>
+                        </div>
+                        <div class="size-option" data-size="500g" data-price="52.00">
+                            <input type="radio" name="classic-size" id="classic-500" value="500g">
+                            <label for="classic-500">
+                                <span class="size-amount">500g</span>
+                                <span class="size-price">$52.00</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="shop-quantity">
+                        <label>Quantity:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus" data-product="classic">-</button>
+                            <input type="number" class="qty-input" id="classic-qty" value="0" min="0" max="99">
+                            <button class="qty-btn plus" data-product="classic">+</button>
+                        </div>
+                    </div>
+                    <button class="add-to-order" data-product="classic">Add to Order</button>
+                </div>
+            </div>
+
+            <!-- Herbal Blends -->
+            <div class="shop-item">
+                <div class="shop-item-visual">
+                    <div class="shop-visual-placeholder">
+                        <span class="shop-icon">🌿</span>
+                    </div>
+                </div>
+                <div class="shop-item-details">
+                    <h3 class="shop-item-name">Herbal Wellness Blend</h3>
+                    <div class="shop-item-origin">Organic Rwandan Botanicals</div>
+                    <p class="shop-item-description">
+                        A carefully curated blend of indigenous Rwandan herbs combined with traditional wellness botanicals. Featuring lemongrass, ginger, hibiscus, and mint, this caffeine-free infusion promotes relaxation and digestive wellness. Naturally sweet with vibrant, refreshing notes.
+                    </p>
+                    <div class="shop-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Tasting Notes</span>
+                            <span class="detail-value">Citrus, Floral, Mint</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Caffeine Level</span>
+                            <span class="detail-value">None</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Brewing Temp</span>
+                            <span class="detail-value">100°C / 212°F</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Steep Time</span>
+                            <span class="detail-value">5-7 minutes</span>
+                        </div>
+                    </div>
+                    <div class="shop-sizes">
+                        <div class="size-option" data-size="100g" data-price="14.00">
+                            <input type="radio" name="herbal-size" id="herbal-100" value="100g" checked>
+                            <label for="herbal-100">
+                                <span class="size-amount">100g</span>
+                                <span class="size-price">$14.00</span>
+                            </label>
+                        </div>
+                        <div class="size-option" data-size="250g" data-price="32.00">
+                            <input type="radio" name="herbal-size" id="herbal-250" value="250g">
+                            <label for="herbal-250">
+                                <span class="size-amount">250g</span>
+                                <span class="size-price">$32.00</span>
+                            </label>
+                        </div>
+                        <div class="size-option" data-size="500g" data-price="60.00">
+                            <input type="radio" name="herbal-size" id="herbal-500" value="500g">
+                            <label for="herbal-500">
+                                <span class="size-amount">500g</span>
+                                <span class="size-price">$60.00</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="shop-quantity">
+                        <label>Quantity:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus" data-product="herbal">-</button>
+                            <input type="number" class="qty-input" id="herbal-qty" value="0" min="0" max="99">
+                            <button class="qty-btn plus" data-product="herbal">+</button>
+                        </div>
+                    </div>
+                    <button class="add-to-order" data-product="herbal">Add to Order</button>
+                </div>
+            </div>
+
+            <!-- Premium Reserve -->
+            <div class="shop-item">
+                <div class="shop-item-visual">
+                    <div class="shop-visual-placeholder">
+                        <span class="shop-icon">✨</span>
+                    </div>
+                    <div class="shop-badge premium">Limited Edition</div>
+                </div>
+                <div class="shop-item-details">
+                    <h3 class="shop-item-name">Premium Reserve Golden Tips</h3>
+                    <div class="shop-item-origin">Single Estate, Limited Harvest</div>
+                    <p class="shop-item-description">
+                        Our most exceptional offering. Hand-selected golden tips from a single harvest at our premier Virunga estate. This rare tea offers delicate complexity with honeyed sweetness, orchid-like florals, and a silky texture. Only 500 units produced per season.
+                    </p>
+                    <div class="shop-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Tasting Notes</span>
+                            <span class="detail-value">Honey, Orchid, Silk</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Caffeine Level</span>
+                            <span class="detail-value">Low-Medium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Brewing Temp</span>
+                            <span class="detail-value">85°C / 185°F</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Steep Time</span>
+                            <span class="detail-value">2-3 minutes</span>
+                        </div>
+                    </div>
+                    <div class="shop-sizes">
+                        <div class="size-option" data-size="50g" data-price="28.00">
+                            <input type="radio" name="reserve-size" id="reserve-50" value="50g" checked>
+                            <label for="reserve-50">
+                                <span class="size-amount">50g</span>
+                                <span class="size-price">$28.00</span>
+                            </label>
+                        </div>
+                        <div class="size-option" data-size="100g" data-price="52.00">
+                            <input type="radio" name="reserve-size" id="reserve-100" value="100g">
+                            <label for="reserve-100">
+                                <span class="size-amount">100g</span>
+                                <span class="size-price">$52.00</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="shop-quantity">
+                        <label>Quantity:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus" data-product="reserve">-</button>
+                            <input type="number" class="qty-input" id="reserve-qty" value="0" min="0" max="99">
+                            <button class="qty-btn plus" data-product="reserve">+</button>
+                        </div>
+                    </div>
+                    <button class="add-to-order" data-product="reserve">Add to Order</button>
+                </div>
+            </div>
+
+            <!-- Coffee Collection -->
+            <div class="shop-item">
+                <div class="shop-item-visual">
+                    <div class="shop-visual-placeholder">
+                        <span class="shop-icon">☕</span>
+                    </div>
+                </div>
+                <div class="shop-item-details">
+                    <h3 class="shop-item-name">Bourbon Coffee - Volcanic Highlands</h3>
+                    <div class="shop-item-origin">Nyamasheke District, Western Rwanda</div>
+                    <p class="shop-item-description">
+                        Grown in volcanic soil at 2,000 meters elevation, this exceptional Bourbon varietal coffee offers bright acidity balanced with full body. Notes of red berries, dark chocolate, and caramel create a complex, memorable cup. Fully washed process.
+                    </p>
+                    <div class="shop-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Tasting Notes</span>
+                            <span class="detail-value">Berry, Chocolate, Caramel</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Roast Level</span>
+                            <span class="detail-value">Medium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Process</span>
+                            <span class="detail-value">Fully Washed</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Altitude</span>
+                            <span class="detail-value">2,000m</span>
+                        </div>
+                    </div>
+                    <div class="shop-sizes">
+                        <div class="size-option" data-size="250g" data-price="16.00">
+                            <input type="radio" name="coffee-size" id="coffee-250" value="250g" checked>
+                            <label for="coffee-250">
+                                <span class="size-amount">250g</span>
+                                <span class="size-price">$16.00</span>
+                            </label>
+                        </div>
+                        <div class="size-option" data-size="500g" data-price="30.00">
+                            <input type="radio" name="coffee-size" id="coffee-500" value="500g">
+                            <label for="coffee-500">
+                                <span class="size-amount">500g</span>
+                                <span class="size-price">$30.00</span>
+                            </label>
+                        </div>
+                        <div class="size-option" data-size="1kg" data-price="56.00">
+                            <input type="radio" name="coffee-size" id="coffee-1kg" value="1kg">
+                            <label for="coffee-1kg">
+                                <span class="size-amount">1kg</span>
+                                <span class="size-price">$56.00</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="shop-quantity">
+                        <label>Quantity:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus" data-product="coffee">-</button>
+                            <input type="number" class="qty-input" id="coffee-qty" value="0" min="0" max="99">
+                            <button class="qty-btn plus" data-product="coffee">+</button>
+                        </div>
+                    </div>
+                    <button class="add-to-order" data-product="coffee">Add to Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Summary Sidebar -->
+    <div id="order-sidebar" class="order-sidebar">
+        <div class="order-header">
+            <h3>Your Order</h3>
+            <button class="close-order" id="close-order">×</button>
+        </div>
+        <div class="order-items" id="order-items">
+            <p class="empty-order">Your order is empty</p>
+        </div>
+        <div class="order-footer">
+            <div class="order-total">
+                <span>Total:</span>
+                <span class="total-amount" id="total-amount">$0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkout-btn">Place Order</button>
+        </div>
+    </div>
+
+    <button class="view-order-btn" id="view-order-btn">
+        <span>View Order</span>
+        <span class="order-count" id="order-count">0</span>
+    </button>
+
+    <!-- Order Modal -->
+    <div class="order-modal" id="order-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">×</button>
+            <h2>Complete Your Order</h2>
+            <div class="modal-body">
+                <div class="order-review" id="order-review"></div>
+                <div class="customer-form">
+                    <h3>Delivery Information</h3>
+                    <div class="form-group">
+                        <label for="customer-name">Full Name *</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-email">Email *</label>
+                        <input type="email" id="customer-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone Number *</label>
+                        <input type="tel" id="customer-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-address">Delivery Address *</label>
+                        <textarea id="customer-address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-notes">Order Notes (Optional)</label>
+                        <textarea id="customer-notes" rows="2"></textarea>
+                    </div>
+                    <div class="form-total">
+                        <span>Order Total:</span>
+                        <span class="modal-total" id="modal-total">$0.00</span>
+                    </div>
+                    <button class="submit-order-btn" id="submit-order">Submit Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Journey Section -->
+    <section id="journey" class="journey">
+        <div class="section-header">
+            <div class="section-number">— 04 —</div>
+            <h2 class="section-title">From Farm to Cup</h2>
+            <p class="section-subtitle">Every step of our journey is guided by care, quality, and respect for the craft</p>
+        </div>
+        <div class="journey-timeline">
+            <div class="timeline-item">
+                <div class="timeline-number">01</div>
+                <div class="timeline-content">
+                    <h3>Highland Harvest</h3>
+                    <p>In Rwanda's misty hills, skilled farmers handpick each leaf at dawn, selecting only the finest two leaves and a bud. This careful selection ensures optimal flavor and quality in every harvest.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-number">02</div>
+                <div class="timeline-content">
+                    <h3>Traditional Care</h3>
+                    <p>Leaves are carefully collected and transported from rural estates, maintaining their integrity through time-honored methods. Each bundle represents the pride and expertise of our farming communities.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-number">03</div>
+                <div class="timeline-content">
+                    <h3>Modern Processing</h3>
+                    <p>At our Kigali facility, leaves undergo precise processing that honors traditional methods while incorporating modern quality controls. This balance preserves authentic flavor while ensuring consistency.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-number">04</div>
+                <div class="timeline-content">
+                    <h3>Refined Packaging</h3>
+                    <p>Each product is thoughtfully packaged to preserve freshness and purity. Our packaging reflects the journey—from the highland farms to your table—with elegant simplicity and sustainable materials.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="section-header">
+            <div class="section-number">— 05 —</div>
+            <h2 class="section-title">Our Values</h2>
+            <p class="section-subtitle">Principles that guide every decision we make</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-item">
+                <h3>Authentic Origin</h3>
+                <p>Every product is 100% Rwandan, sourced directly from our highland farms. We celebrate our roots and never compromise on authenticity.</p>
+            </div>
+            <div class="value-item">
+                <h3>Farmer Empowerment</h3>
+                <p>We believe in fair partnerships. Our farmers receive fair compensation, training, and support to build sustainable livelihoods for their families.</p>
+            </div>
+            <div class="value-item">
+                <h3>Quality First</h3>
+                <p>We prioritize quality over mass production. Each batch undergoes rigorous testing to ensure it meets our exacting standards.</p>
+            </div>
+            <div class="value-item">
+                <h3>Community Support</h3>
+                <p>Beyond our farms, we invest in local communities through education, infrastructure, and sustainable development initiatives.</p>
+            </div>
+            <div class="value-item">
+                <h3>Environmental Care</h3>
+                <p>Sustainable farming practices protect our land for future generations. We minimize our environmental impact at every stage.</p>
+            </div>
+            <div class="value-item">
+                <h3>Honest Storytelling</h3>
+                <p>We communicate with transparency and confidence, sharing our journey authentically without over-commercialization.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <div class="section-number">— 06 —</div>
+            <h2 class="section-title">Connect With Us</h2>
+            <p class="section-subtitle">We'd love to hear from you</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value"><a href="/cdn-cgi/l/email-protection#2940474f46694d4844485b485b48075b5e"><span class="__cf_email__" data-cfemail="3b52555d547b5f5a565a495a495a15494c">[email&#160;protected]</span></a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Phone</span>
+                    <span class="contact-value"><a href="tel:+250123456789">+250 123 456 789</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Location</span>
+                    <span class="contact-value">Kigali, Rwanda</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">Damarara</div>
+                <p class="footer-tagline">From the misty hills of Rwanda to your cup. Premium tea and coffee crafted with care, honoring tradition and empowering communities.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Products</h4>
+                <ul class="footer-links">
+                    <li><a href="#products">Classic Black Tea</a></li>
+                    <li><a href="#products">Herbal Blends</a></li>
+                    <li><a href="#products">Premium Reserve</a></li>
+                    <li><a href="#products">Coffee Collection</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#story">Our Story</a></li>
+                    <li><a href="#journey">Our Journey</a></li>
+                    <li><a href="#values">Our Values</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow</h4>
+                <ul class="footer-links">
+                    <li><a href="#" target="_blank">Instagram</a></li>
+                    <li><a href="#" target="_blank">Facebook</a></li>
+                    <li><a href="#" target="_blank">Twitter</a></li>
+                    <li><a href="#" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Damarara Tea & Coffee. All rights reserved. Proudly Rwandan.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Custom Cursor - Functional Implementation
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let followerX = 0;
+        let followerY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Animate cursor with smooth following
+        function animateCursor() {
+            // Immediate cursor movement
+            cursorX = mouseX;
+            cursorY = mouseY;
+            cursor.style.transform = `translate(${cursorX - 6}px, ${cursorY - 6}px)`;
+
+            // Delayed follower movement for smooth effect
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            follower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        // Start animation
+        animateCursor();
+
+        // Cursor hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, input, textarea, .product-card, .shop-item');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = `translate(${cursorX - 6}px, ${cursorY - 6}px) scale(1.5)`;
+                follower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px) scale(1.3)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = `translate(${cursorX - 6}px, ${cursorY - 6}px) scale(1)`;
+                follower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px) scale(1)`;
+            });
+        });
+
+        // Order Management System
+        let orderData = [];
+
+        // Product Data
+        const products = {
+            classic: { name: 'Classic Black Tea', icon: '🍃' },
+            herbal: { name: 'Herbal Wellness Blend', icon: '🌿' },
+            reserve: { name: 'Premium Reserve Golden Tips', icon: '✨' },
+            coffee: { name: 'Bourbon Coffee - Volcanic Highlands', icon: '☕' }
+        };
+
+        // Quantity Controls
+        document.querySelectorAll('.qty-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.product;
+                const input = document.getElementById(`${productId}-qty`);
+                const currentValue = parseInt(input.value);
+                
+                if (this.classList.contains('plus')) {
+                    input.value = Math.min(currentValue + 1, 99);
+                } else if (this.classList.contains('minus')) {
+                    input.value = Math.max(currentValue - 1, 0);
+                }
+            });
+        });
+
+        // Add to Order
+        document.querySelectorAll('.add-to-order').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.product;
+                const quantity = parseInt(document.getElementById(`${productId}-qty`).value);
+                
+                if (quantity === 0) {
+                    alert('Please select a quantity');
+                    return;
+                }
+
+                const selectedSize = document.querySelector(`input[name="${productId}-size"]:checked`);
+                const size = selectedSize.value;
+                const price = parseFloat(selectedSize.parentElement.dataset.price);
+                
+                orderData.push({
+                    id: Date.now(),
+                    productId: productId,
+                    name: products[productId].name,
+                    icon: products[productId].icon,
+                    size: size,
+                    quantity: quantity,
+                    price: price,
+                    total: price * quantity
+                });
+
+                document.getElementById(`${productId}-qty`).value = 0;
+                updateOrderDisplay();
+                alert(`Added ${quantity} × ${products[productId].name} (${size}) to your order!`);
+            });
+        });
+
+        // Update Order Display
+        function updateOrderDisplay() {
+            const orderItemsContainer = document.getElementById('order-items');
+            const orderCount = document.getElementById('order-count');
+            const totalAmount = document.getElementById('total-amount');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            if (orderData.length === 0) {
+                orderItemsContainer.innerHTML = '<p class="empty-order">Your order is empty</p>';
+                orderCount.textContent = '0';
+                totalAmount.textContent = '$0.00';
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            orderCount.textContent = orderData.length;
+            const total = orderData.reduce((sum, item) => sum + item.total, 0);
+            totalAmount.textContent = `$${total.toFixed(2)}`;
+            checkoutBtn.disabled = false;
+
+            orderItemsContainer.innerHTML = orderData.map(item => `
+                <div class="order-item">
+                    <div class="order-item-header">
+                        <div><div class="order-item-name">${item.icon} ${item.name}</div></div>
+                        <button class="order-item-remove" onclick="removeOrderItem(${item.id})">×</button>
+                    </div>
+                    <div class="order-item-details">Size: ${item.size} | Quantity: ${item.quantity}</div>
+                    <div class="order-item-price">
+                        <span>$${item.price.toFixed(2)} × ${item.quantity}</span>
+                        <span>$${item.total.toFixed(2)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeOrderItem(id) {
+            orderData = orderData.filter(item => item.id !== id);
+            updateOrderDisplay();
+        }
+
+        // Order Sidebar
+        document.getElementById('view-order-btn').addEventListener('click', () => {
+            document.getElementById('order-sidebar').classList.add('open');
+        });
+
+        document.getElementById('close-order').addEventListener('click', () => {
+            document.getElementById('order-sidebar').classList.remove('open');
+        });
+
+        // Checkout Modal
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            if (orderData.length === 0) return;
+            
+            const total = orderData.reduce((sum, item) => sum + item.total, 0);
+            document.getElementById('order-review').innerHTML = `
+                <h3>Order Summary</h3>
+                ${orderData.map(item => `
+                    <div class="review-item">
+                        <span>${item.name} (${item.size}) × ${item.quantity}</span>
+                        <span>$${item.total.toFixed(2)}</span>
+                    </div>
+                `).join('')}
+            `;
+            
+            document.getElementById('modal-total').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('order-modal').classList.add('active');
+            document.getElementById('order-sidebar').classList.remove('open');
+        });
+
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('order-modal').classList.remove('active');
+        });
+
+        // Submit Order
+        document.getElementById('submit-order').addEventListener('click', () => {
+            const name = document.getElementById('customer-name').value.trim();
+            const email = document.getElementById('customer-email').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const address = document.getElementById('customer-address').value.trim();
+
+            if (!name || !email || !phone || !address) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            const orderSummary = {
+                customer: { name, email, phone, address, notes: document.getElementById('customer-notes').value.trim() },
+                items: orderData,
+                total: orderData.reduce((sum, item) => sum + item.total, 0),
+                orderDate: new Date().toISOString()
+            };
+
+            console.log('Order submitted:', orderSummary);
+
+            document.querySelector('.modal-body').innerHTML = `
+                <div class="success-message">
+                    <h3>✓ Order Submitted Successfully!</h3>
+                    <p>Thank you, ${name}! We'll contact you at ${email} to confirm your order.</p>
+                    <p>Order Reference: #${Date.now().toString().slice(-8)}</p>
+                    <p>Total: $${orderSummary.total.toFixed(2)}</p>
+                    <button class="submit-order-btn" onclick="location.reload()">Close</button>
+                </div>
+            `;
+
+            orderData = [];
+            updateOrderDisplay();
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.product-card, .timeline-item, .value-item, .shop-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) {
+                const heroHeight = heroSection.off
